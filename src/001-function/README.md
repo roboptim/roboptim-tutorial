@@ -9,7 +9,7 @@ The goal of this exercise is to write your first RobOptim function.
 The EggHolder function
 ----------------------
 
-FIXME
+![EggHolder Function](doc/eggholder_function.png)
 
 Display the function using the RobOptim Gnuplot tools
 -----------------------------------------------------

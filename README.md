@@ -1,5 +1,5 @@
 roboptim-tutorial
------------------
+=================
 
 This repository contains exercises to learn how to use RobOptim. They
 are ordered by difficulty so please try to go through them in the
@@ -7,7 +7,7 @@ suggested order.
 
 
 How to use the tutorials?
-=========================
+-------------------------
 
 To go though the tutorials, please first fork this repository (log in
 / create your GitHub acount if necessary).
@@ -35,7 +35,7 @@ https://groups.google.com/forum/#!forum/roboptim
 
 
 Exercises
-=========
+---------
 
  * [The first step: implementing your own function][ex1]
  * [Playing with RobOptim filters][ex2]
@@ -51,7 +51,7 @@ Exercises
 
 
 For cheaters: checking up the solutions
-=======================================
+---------------------------------------
 
 Solutions are available in a different branch called "answers". Once
 you are done implementing the exercises, take a look at the reference

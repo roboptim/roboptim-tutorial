@@ -23,7 +23,7 @@ FIXME
 
 
 
-[⬅ Prev][ex1] | [Home][main] | [Next ➡][ex3]
+[← Prev][ex1] | [Home][main] | [Next →][ex3]
 
  [main]: https://github.com/roboptim/roboptim-tutorial/
  [ex1]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/001-function

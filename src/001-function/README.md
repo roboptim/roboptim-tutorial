@@ -18,7 +18,7 @@ FIXME
 
 
 
-[Home][main] | [Next ➡][ex2]
+[Home][main] | [Next →][ex2]
 
  [main]: https://github.com/roboptim/roboptim-tutorial/
  [ex2]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/002-filter

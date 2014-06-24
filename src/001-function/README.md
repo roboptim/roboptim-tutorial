@@ -42,9 +42,15 @@ Finally, running the command:
 ![Result](doc/result.png)
 
 
+To help you:
+
+ * [RobOptim Core documentation][roboptim_core]
+
+
 [Home][main] | [Next →][ex2]
 
  [main]: https://github.com/roboptim/roboptim-tutorial/
  [ex2]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/002-filter
 
  [test_functions]: http://en.wikipedia.org/wiki/Test_functions_for_optimization
+ [roboptim_core]: http://www.roboptim.net/roboptim-core/doxygen/HEAD/

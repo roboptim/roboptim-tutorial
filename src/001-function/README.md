@@ -29,6 +29,7 @@ Display the function using the RobOptim Gnuplot tools
 
 FIXME
 
+![Result](doc/result.png)
 
 
 [Home][main] | [Next →][ex2]

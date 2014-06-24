@@ -27,7 +27,17 @@ The formula of this function is:
 Display the function using the RobOptim Gnuplot tools
 -----------------------------------------------------
 
-FIXME
+Using the skeleton in the file 001-function.cc, implement the
+function.
+
+You should use the RobOptim Gnuplot visualization tools to plot the
+function on the *standard output*.
+
+Finally, running the command:
+
+    ./001-function | gnuplot
+
+...should display the following graph:
 
 ![Result](doc/result.png)
 

@@ -22,6 +22,7 @@ The formula of this function is:
 
 ![EggHolder Formula](doc/eggholder.png)
 
+[Figure and formula from Wikipedia][test_functions]
 
 Display the function using the RobOptim Gnuplot tools
 -----------------------------------------------------
@@ -34,3 +35,5 @@ FIXME
 
  [main]: https://github.com/roboptim/roboptim-tutorial/
  [ex2]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/002-filter
+
+ [test_functions]: http://en.wikipedia.org/wiki/Test_functions_for_optimization

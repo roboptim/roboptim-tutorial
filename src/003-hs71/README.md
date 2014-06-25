@@ -6,7 +6,7 @@ The goal is to implement and solve a small optimization problem.
 This problem is the 71th problem of the Hock-Schittkowski-Collection
 and is defined as:
 
-![Optimization Problem](doc/problem.png)
+![Optimization Problem](doc/min.png)
 
 ...under the following constraints:
 

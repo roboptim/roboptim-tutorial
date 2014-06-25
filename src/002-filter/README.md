@@ -9,17 +9,61 @@ Let's use some of the built-in RobOptim filters to manipulate basic functions!
 Built-in Functions
 ------------------
 
-FIXME
+Look into the `include/roboptim/core/function` directory of `roboptim-core`.
+
+You will see than RobOptim bundles some basic functions, including:
+
+* Cosinus
+* Sinus
+* Constant
+* Identity
+* Polynomial
+
+First, try to instantiate a Cos and Sin function. Display their value
+to make sure that you obtain what you expect.
+
+Instead of instantiating them on the stack, create a shared pointer
+pointing to these classes.
+
+
+*Reminder:* the correct way to instantiate shared pointers is:
+
+   #include <boost/make_shared.hpp>
+
+   boost::shared_ptr<SOME_TYPE> fPtr = boost::make_shared<SOME_TYPE> (ARG0, ARG1, ...);
+
 
 Basic Filters
 -------------
 
-FIXME
+* `f + g`
+* `f - g`
+* `λ f`
+* `f * g`
+* `g ∘ f` (function composition)
+* `f'` (derivation)
 
 Manipulating functions
 ----------------------
 
-FIXME
+You already instantiated Cosinus and Sinus functions as shared
+pointers previously. Now, try to combine the two functions as follow:
+
+![Filter Formula](doc/filter-formula.png)
+
+You should end up with a new function object.
+
+Additionally, use the derivative filter on sinus and display the
+result.
+
+Use the Gnuplot visualization tools so that running the command:
+
+    ./002-filter | gnuplot
+
+...display the following graphs:
+
+![Result](doc/result.png)
+
 
 
 

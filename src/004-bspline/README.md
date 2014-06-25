@@ -19,13 +19,14 @@ Display the following trajectory values:
 
 * original spline, `t = 5`
 * free time trajectory, `scale = 1`, `t = 5`
+* free time trajectory, `scale = 2`, `t = 5`
 
 RobOptim Trajectory also provides points moving with the time
 parametrization. They are called "stable time point". Display the
 following information:
 
 * original spline `stp = .5`
-* free time trajectory `stp = .5`
+* free time trajectory `scale = 2`, `stp = .5`
 
 
 In the end, running `004-bspline | gnuplot` shoud give you:

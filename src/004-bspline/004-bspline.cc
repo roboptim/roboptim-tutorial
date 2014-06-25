@@ -1,4 +1,5 @@
 #include <roboptim/trajectory/cubic-b-spline.hh>
+#include <roboptim/trajectory/free-time-trajectory.hh>
 #include <roboptim/trajectory/visualization/trajectory.hh>
 
 #include <roboptim/core/visualization/gnuplot.hh>
@@ -25,4 +26,23 @@ int main()
   gnuplot
     << gnuplot::plot_xy (spline);
   std::cout << gnuplot << std::endl;
+
+  // create a free time trajectory from the original one
+  FreeTimeTrajectory<CubicBSpline> freeTime (spline, 1.);
+
+  std::cerr
+    << "free time trajectory (5, scale = 1): "
+    << freeTime (5.) << std::endl;
+
+  FreeTimeTrajectory<CubicBSpline>::vector_t tmp = freeTime.parameters ();
+  tmp[0] = 2.;
+  freeTime.setParameters (tmp);
+
+  std::cerr
+    << "free time trajectory (5, scale = 2): "
+    << freeTime (5.) << std::endl
+    << "spline (.5 * tMax): "
+    << spline (.5 * tMax) << std::endl
+    << "free time trajectory (.5 * tMax): "
+    <<  freeTime (.5 * tMax) << std::endl;
 }

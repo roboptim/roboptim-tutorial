@@ -28,9 +28,8 @@ pointing to these classes.
 
 *Reminder:* the correct way to instantiate shared pointers is:
 
-   #include <boost/make_shared.hpp>
-
-   boost::shared_ptr<SOME_TYPE> fPtr = boost::make_shared<SOME_TYPE> (ARG0, ARG1, ...);
+    #include <boost/make_shared.hpp>
+    boost::shared_ptr<SOME_TYPE> fPtr = boost::make_shared<SOME_TYPE> (ARG0, ARG1, ...);
 
 
 Basic Filters

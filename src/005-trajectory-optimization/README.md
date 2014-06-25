@@ -50,6 +50,7 @@ tools so that the two curves can be compared.
 In the end, running `005-trajectory-optimization | gnuplot` shoud give you:
 
 ![Result](doc/result.png)
+![Result 2](doc/result2.png)
 
 *Note:* the trajectories will change depending on how you implemented
  this exercise.

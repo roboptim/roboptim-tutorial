@@ -1,4 +1,5 @@
 #include <cmath>
+#include <stdexcept>
 #include <roboptim/core/function.hh>
 
 #include <roboptim/core/visualization/gnuplot.hh>
@@ -7,29 +8,28 @@
 using namespace roboptim::visualization;
 using namespace roboptim::visualization::gnuplot;
 
+static const int FIXME = 42;
+# define FIXME_IMPLEMENT_ME() \
+  throw std::runtime_error ("please implement me")
+
+// The RobOptim function you have to implement.
 struct EggHolder : public roboptim::Function
 {
   EggHolder ()
-    : roboptim::Function (1, 1, "EggHolder")
+    // Change the first FIXME by the function input size
+    // Change the second FIXME by the function output size
+    : roboptim::Function (FIXME, FIXME, "EggHolder")
   {}
 
+  // This method is used to evaluate the function.
   void impl_compute (result_t& r, const argument_t& x) const
   {
-    r[0] =
-      -47 * std::sin (std::sqrt (std::abs (.5 * x[0] + 47.)))
-      - x[0] * std::sin (std::sqrt (std::abs (x[0] - 47)));
+    FIXME_IMPLEMENT_ME ();
   }
 };
 
 int main()
 {
-  Gnuplot gnuplot = Gnuplot::make_interactive_gnuplot ();
-
-  discreteInterval_t interval (-512., 512., 1.);
-
-  EggHolder f;
-
-  std::cout << (gnuplot << plot (f, interval));
-
+  FIXME_IMPLEMENT_ME ();
   return 0;
 }

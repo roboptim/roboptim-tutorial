@@ -8,6 +8,9 @@
 using namespace roboptim;
 using namespace roboptim::visualization;
 using namespace roboptim::visualization::gnuplot;
+using namespace roboptim::trajectory;
+using namespace roboptim::trajectory::visualization;
+using namespace roboptim::trajectory::visualization::gnuplot;
 
 int main()
 {
@@ -24,7 +27,7 @@ int main()
   // display trajectory as Gnuplot data
   Gnuplot gnuplot = Gnuplot::make_interactive_gnuplot ();
   gnuplot
-    << gnuplot::plot_xy (spline);
+    << plot_xy (spline);
   std::cout << gnuplot << std::endl;
 
   // create a free time trajectory from the original one

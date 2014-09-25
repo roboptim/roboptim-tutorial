@@ -13,6 +13,9 @@
 using namespace roboptim;
 using namespace roboptim::visualization;
 using namespace roboptim::visualization::gnuplot;
+using namespace roboptim::trajectory;
+using namespace roboptim::trajectory::visualization;
+using namespace roboptim::trajectory::visualization::gnuplot;
 
 
 // Define a solver type.

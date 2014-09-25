@@ -1,5 +1,7 @@
 #include <boost/shared_ptr.hpp>
 
+#include <roboptim/core/linear-function.hh>
+#include <roboptim/core/differentiable-function.hh>
 #include <roboptim/core/twice-differentiable-function.hh>
 #include <roboptim/core/io.hh>
 #include <roboptim/core/solver.hh>

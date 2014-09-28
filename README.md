@@ -12,7 +12,13 @@ How to use the tutorials?
 To go though the tutorials, please first fork this repository (log in
 / create your GitHub acount if necessary).
 
-Then, clone your fork on your local machine.
+Then, clone your fork on your local machine:
+
+    $ git clone --recursive git@github.com:your_username/roboptim-tutorial.git
+
+If you do not want to create a fork on GitHub, you can simply clone the official repository:
+
+    $ git clone --recursive https://github.com/roboptim/roboptim-tutorial.git
 
 Once this is done, compile this repository like you would compile any
 other RobOptim package:

@@ -124,6 +124,7 @@ int main ()
   // Set the starting point.
   Function::vector_t start (pb.function ().inputSize ());
   start[0] = 1., start[1] = 5., start[2] = 5., start[3] = 1.;
+  pb.startingPoint() = start;
 
   // Create constraints.
   boost::shared_ptr<G0> g0 (new G0 ());

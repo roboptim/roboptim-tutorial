@@ -22,7 +22,7 @@ struct EggHolder : public roboptim::Function
   {}
 
   // This method is used to evaluate the function.
-  void impl_compute (result_t& r, const argument_t& x) const
+  void impl_compute (result_ref r, const_argument_ref x) const
   {
     FIXME_IMPLEMENT_ME ();
   }

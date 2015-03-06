@@ -44,14 +44,14 @@ public:
 private:
 
   // result = f(x)
-  virtual void impl_compute (result_t& result, const argument_t& /* x */) const
+  virtual void impl_compute (result_ref result, const_argument_ref /* x */) const
   {
     result[0] = 42.;
   }
 
   // grad = f.gradient (x)
   virtual void impl_gradient
-  (gradient_t& grad, const argument_t& /* x */, size_type /* i */) const
+  (gradient_ref grad, const_argument_ref /* x */, size_type /* i */) const
   {
     // put all the elements to zero
     grad.setZero ();
@@ -72,14 +72,14 @@ public:
 private:
 
   // result = f(x)
-  virtual void impl_compute (result_t& result, const argument_t& x) const
+  virtual void impl_compute (result_ref result, const_argument_ref x) const
   {
     result[0] = x[1];
   }
 
   // grad = f.gradient (x)
   virtual void impl_gradient
-  (gradient_t& grad, const argument_t& /* x */, size_type /* i */) const
+  (gradient_ref grad, const_argument_ref /* x */, size_type /* i */) const
   {
     grad.setZero ();
     grad[1] = 1.;

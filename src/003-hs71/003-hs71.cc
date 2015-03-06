@@ -16,13 +16,13 @@ struct F : public TwiceDifferentiableFunction
   }
 
   void
-  impl_compute (result_t& result, const argument_t& x) const throw ()
+  impl_compute (result_ref result, const_argument_ref x) const throw ()
   {
     result[0] = x[0] * x[3] * (x[0] + x[1] + x[2]) + x[2];
   }
 
   void
-  impl_gradient (gradient_t& grad, const argument_t& x, size_type) const throw ()
+  impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const throw ()
   {
     grad << x[0] * x[3] + x[3] * (x[0] + x[1] + x[2]),
       x[0] * x[3],
@@ -31,7 +31,7 @@ struct F : public TwiceDifferentiableFunction
   }
 
   void
-  impl_hessian (hessian_t& h, const argument_t& x, size_type) const throw ()
+  impl_hessian (hessian_ref h, const_argument_ref x, size_type) const throw ()
   {
     h << 2 * x[3],               x[3], x[3], 2 * x[0] + x[1] + x[2],
       x[3],                   0.,   0.,   x[0],
@@ -47,13 +47,13 @@ struct G0 : public TwiceDifferentiableFunction
   }
 
   void
-  impl_compute (result_t& result, const argument_t& x) const throw ()
+  impl_compute (result_ref result, const_argument_ref x) const throw ()
   {
     result[0] = x[0] * x[1] * x[2] * x[3];
   }
 
   void
-  impl_gradient (gradient_t& grad, const argument_t& x, size_type) const throw ()
+  impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const throw ()
   {
     grad << x[1] * x[2] * x[3],
       x[0] * x[2] * x[3],
@@ -62,7 +62,7 @@ struct G0 : public TwiceDifferentiableFunction
   }
 
   void
-  impl_hessian (hessian_t& h, const argument_t& x, size_type) const throw ()
+  impl_hessian (hessian_ref h, const_argument_ref x, size_type) const throw ()
   {
     h << 0.,          x[2] * x[3], x[1] * x[3], x[1] * x[2],
       x[2] * x[3], 0.,          x[0] * x[3], x[0] * x[2],
@@ -78,19 +78,19 @@ struct G1 : public TwiceDifferentiableFunction
   }
 
   void
-  impl_compute (result_t& result, const argument_t& x) const throw ()
+  impl_compute (result_ref result, const_argument_ref x) const throw ()
   {
     result[0] = x[0] * x[0] + x[1] * x[1] + x[2] * x[2] + x[3] * x[3];
   }
 
   void
-  impl_gradient (gradient_t& grad, const argument_t& x, size_type) const throw ()
+  impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const throw ()
   {
     grad = 2 * x;
   }
 
   void
-  impl_hessian (hessian_t& h, const argument_t& x, size_type) const throw ()
+  impl_hessian (hessian_ref h, const_argument_ref x, size_type) const throw ()
   {
     h << 2., 0., 0., 0.,
       0., 2., 0., 0.,

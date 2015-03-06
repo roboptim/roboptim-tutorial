@@ -13,7 +13,7 @@ struct EggHolder : public roboptim::Function
     : roboptim::Function (1, 1, "EggHolder")
   {}
 
-  void impl_compute (result_t& r, const argument_t& x) const
+  void impl_compute (result_ref r, const_argument_ref x) const
   {
     r[0] =
       -47 * std::sin (std::sqrt (std::abs (.5 * x[0] + 47.)))

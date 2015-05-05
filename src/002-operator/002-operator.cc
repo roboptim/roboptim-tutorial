@@ -3,10 +3,10 @@
 
 #include <boost/make_shared.hpp>
 
-#include <roboptim/core/filter/derivative.hh>
-#include <roboptim/core/filter/plus.hh>
-#include <roboptim/core/filter/product.hh>
-#include <roboptim/core/filter/scalar.hh>
+#include <roboptim/core/operator/derivative.hh>
+#include <roboptim/core/operator/plus.hh>
+#include <roboptim/core/operator/product.hh>
+#include <roboptim/core/operator/scalar.hh>
 
 #include <roboptim/core/function/cos.hh>
 #include <roboptim/core/function/sin.hh>

@@ -1,9 +1,9 @@
-002-filter
+002-operator
 ==========
 
-Filters are RobOptim tools that allow you to combine functions together.
+Operators are RobOptim tools that allow you to combine functions together.
 
-Let's use some of the built-in RobOptim filters to manipulate basic functions!
+Let's use some of the built-in RobOptim operators to manipulate basic functions!
 
 
 Built-in Functions
@@ -32,7 +32,7 @@ pointing to these classes.
     boost::shared_ptr<SOME_TYPE> fPtr = boost::make_shared<SOME_TYPE> (ARG0, ARG1, ...);
 
 
-Basic Filters
+Basic Operators
 -------------
 
 * `f + g`
@@ -48,16 +48,16 @@ Manipulating functions
 You already instantiated Cosinus and Sinus functions as shared
 pointers previously. Now, try to combine the two functions as follow:
 
-![Filter Formula](doc/filter-formula.png)
+![Operator Formula](doc/operator-formula.png)
 
 You should end up with a new function object.
 
-Additionally, use the derivative filter on sinus and display the
+Additionally, use the derivative operator on sinus and display the
 result.
 
 Use the Gnuplot visualization tools so that running the command:
 
-    ./002-filter | gnuplot
+    ./002-operator | gnuplot
 
 ...display the following graphs:
 

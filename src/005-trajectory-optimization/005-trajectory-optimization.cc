@@ -145,7 +145,7 @@ int main ()
     Function::makeInterval (0, 1);
 
   // creating the solver
-  SolverFactory<solver_t> factory ("cfsqp", problem);
+  SolverFactory<solver_t> factory ("ipopt", problem);
   solver_t& solver = factory ();
 
   // display the solver and problem

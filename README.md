@@ -38,13 +38,13 @@ Exercises
 ---------
 
  * [The first step: implementing your own function][ex1]
- * [Playing with RobOptim filters][ex2]
+ * [Playing with RobOptim operators][ex2]
  * [Implementing a simple optimization problem][ex3]
  * [RobOptim Trajectory and the parametrized curves][ex4]
  * [Spline optimization][ex5]
 
  [ex1]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/001-function
- [ex2]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/002-filter
+ [ex2]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/002-operator
  [ex3]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/003-hs71
  [ex4]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/004-bspline
  [ex5]: https://github.com/roboptim/roboptim-tutorial/tree/master/src/005-trajectory-optimization

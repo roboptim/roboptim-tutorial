@@ -52,21 +52,24 @@ output:
 
 
     Solver:
-      Plugin: cfsqp
+      Plugin: ipopt
       Problem:
-        x₀ * x₃ * (x₀ + x₁ + x₂) + x₂ (differentiable function)
-        Argument's bounds: (1, 5), (1, 5), (1, 5), (1, 5)
-        Argument's scales: 1, 1, 1, 1
+        x₀ * x₃ * (x₀ + x₁ + x₂) + x₂ (twice differentiable function)
+        Arguments bounds: (1, 5), (1, 5), (1, 5), (1, 5)
+        Arguments scaling: 1, 1, 1, 1
         Number of constraints: 2
         Constraint 0
-            x₀ * x₁ * x₂ * x₃ (differentiable function)
+            x₀ * x₁ * x₂ * x₃ (twice differentiable function)
             Bounds: (25, inf)
-            Scales: 1
+            Scaling: 1
+            Initial value: [1](25)
         Constraint 1
-            x₀² + x₁² + x₂² + x₃² (differentiable function)
+            x₀² + x₁² + x₂² + x₃² (twice differentiable function)
             Bounds: (40, 40)
-            Scales: 1
-        No starting point.
+            Scaling: 1
+            Initial value: [1](52) (constraint not satisfied)
+        Starting point: [4](1,5,5,1)
+        Starting value: [1](16)
         Infinity value (for all functions): inf
       Result:
         Result:
@@ -74,33 +77,40 @@ output:
           X: [4](1,4.743,3.82115,1.37941)
           Value: [1](17.014)
           Constraints values: [2](25,40)
-          Lambda: [2](0.161469,1)
+          Lambda: [2](-0.552294,0.161469)
       Parameters:
-        cfsqp.bigbnd (symbolizes infinity): 1e+10
-        cfsqp.eps (final norm requirement for the Newton direction): 1e-08
-        cfsqp.epseqn (maximum violation of nonlinear equality constraint): 1e-08
-        cfsqp.gLgeps (N/A): 0
-        cfsqp.iprint (logging level): 0
-        cfsqp.mode (CFSQP mode): 100
-        cfsqp.nstop (N/A): 0
-        cfsqp.objeps (N/A): 0
-        cfsqp.objrep (N/A): 0
-        cfsqp.udelta (perturbation size used in CFSQP finite differences algorithm): 1e-08
+        ipopt.acceptable_compl_inf_tol ("acceptance" threshold for the complementarity conditions): 0.01
+        ipopt.acceptable_constr_viol_tol ("acceptance" threshold for the constraint violation): 0.01
+        ipopt.acceptable_dual_inf_tol ("acceptance" threshold for the dual infeasibility): 1e+10
+        ipopt.acceptable_iter (number of "acceptable" iterates before triggering termination): 15
+        ipopt.acceptable_tol ("acceptable" convergence tolerance (relative)): 1e-06
+        ipopt.compl_inf_tol (desired threshold for the complementarity conditions): 0.0001
+        ipopt.constr_viol_tol (desired threshold for the constraint violation): 0.0001
+        ipopt.derivative_test (enable derivative checker): none
+        ipopt.dual_inf_tol (desired threshold for the dual infeasibility): 1
+        ipopt.expect_infeasible_problem (enable heuristics to quickly detect an infeasible problem): no
+        ipopt.file_print_level (verbosity level for output file): 5
+        ipopt.hessian_approximation: limited-memory
+        ipopt.linear_solver (linear solver): mumps
+        ipopt.mu_strategy (update strategy for barrier parameter): adaptive
+        ipopt.nlp_scaling_max_gradient (maximum gradient after NLP scaling): 100
+        ipopt.nlp_scaling_method (technique used for scaling the problem internally before it is solved): gradient-based
+        ipopt.option_file_name (file name of options file (to overwrite default)): 
+        ipopt.output_file (file name of desired output file (leave unset for no file output)): 
+        ipopt.print_level (output verbosity level): 5
+        ipopt.print_options_documentation (switch to print all algorithmic options): no
+        ipopt.print_user_options (print all options set by the user): no
+        ipopt.start_with_resto (tells algorithm to switch to restoration phase in first iteration): no
+        ipopt.tol (desired convergence tolerance (relative)): 1e-08
         max-iterations (number of iterations): 3000
 
-      CFSQP specific variables:
-        Nineq: 1
-        Nineqn: 1
-        Neq: 1
-        Neqn: 1
-        CFSQP constraints: ((0, 0), 1), ((1, 0), 1)
-    A solution has been found:
+    A solution has been found: 
     Result:
       Size (input, output): 4, 1
       X: [4](1,4.743,3.82115,1.37941)
       Value: [1](17.014)
       Constraints values: [2](25,40)
-      Lambda: [2](0.161469,1)
+      Lambda: [2](-0.552294,0.161469)
 
 
 

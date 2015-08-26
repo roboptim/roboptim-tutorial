@@ -157,7 +157,7 @@ int main ()
   //  - Eigen: "eigen-levenberg-marquardt"
   //  etc.
   // The plugin is built for a given solver type, so choose it adequately.
-  SolverFactory<solver_t> factory ("cfsqp", pb);
+  SolverFactory<solver_t> factory ("ipopt", pb);
   solver_t& solver = factory ();
 
   // Compute the minimum and retrieve the result.

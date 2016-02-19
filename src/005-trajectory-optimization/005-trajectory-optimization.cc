@@ -19,88 +19,76 @@ using namespace roboptim::trajectory::visualization::gnuplot;
 
 
 // Define a solver type.
-//
-// Cost: Differentiable Function (gradient computations but no hessian)
-// Constraint: Differentiable Function or Linear Function
-typedef Solver<
-  DifferentiableFunction,    // cost function
-  boost::mpl::vector<
-    LinearFunction,          // constraint type 1
-    DifferentiableFunction   // constraint type 2
-    >
-  > solver_t;
+typedef Solver<EigenMatrixDense> solver_t;
 
 class Cost : public DifferentiableFunction
 {
-public:
-  Cost ()
-    // input size, output size, description
-    : DifferentiableFunction (2 * 10, 1, "the cost function")
-  {}
+  public:
+    Cost ()
+      // input size, output size, description
+      : DifferentiableFunction (2 * 10, 1, "the cost function")
+    {}
 
-  ~Cost ()
-  {}
+    ~Cost ()
+    {}
 
-private:
+  private:
 
-  // result = f(x)
-  virtual void impl_compute (result_ref result, const_argument_ref /* x */) const
-  {
-    result[0] = 42.;
-  }
+    // result = f(x)
+    virtual void impl_compute (result_ref result, const_argument_ref /* x */) const
+    {
+      result[0] = 42.;
+    }
 
-  // grad = f.gradient (x)
-  virtual void impl_gradient
-  (gradient_ref grad, const_argument_ref /* x */, size_type /* i */) const
-  {
-    // put all the elements to zero
-    grad.setZero ();
-  }
+    // grad = f.gradient (x)
+    virtual void impl_gradient (gradient_ref grad, const_argument_ref /* x */,
+                                size_type /* i */) const
+    {
+      // put all the elements to zero
+      grad.setZero ();
+    }
 };
 
 class Constraint : public DifferentiableFunction
 {
-public:
-  Constraint ()
-    // input size, output size, description
-    : DifferentiableFunction (2, 1, "the constraint")
-  {}
+  public:
+    Constraint ()
+      // input size, output size, description
+      : DifferentiableFunction (2, 1, "the constraint")
+    {}
 
-  ~Constraint ()
-  {}
+    ~Constraint ()
+    {}
 
-private:
+  private:
 
-  // result = f(x)
-  virtual void impl_compute (result_ref result, const_argument_ref x) const
-  {
-    result[0] = x[1];
-  }
+    // result = f(x)
+    virtual void impl_compute (result_ref result, const_argument_ref x) const
+    {
+      result[0] = x[1];
+    }
 
-  // grad = f.gradient (x)
-  virtual void impl_gradient
-  (gradient_ref grad, const_argument_ref /* x */, size_type /* i */) const
-  {
-    grad.setZero ();
-    grad[1] = 1.;
-  }
+    // grad = f.gradient (x)
+    virtual void impl_gradient (gradient_ref grad, const_argument_ref /* x */,
+                                size_type /* i */) const
+    {
+      grad.setZero ();
+      grad[1] = 1.;
+    }
 };
 
 int main ()
 {
   // create a spline
-  CubicBSpline::interval_t timeRange =
-    CubicBSpline::makeInterval (0., 10.);
+  CubicBSpline::interval_t timeRange = CubicBSpline::makeInterval (0., 10.);
 
   CubicBSpline::vector_t parameters (2 * 10);
-  parameters =
-    CubicBSpline::vector_t::Random (2 * 10) * 10.;
+  parameters = CubicBSpline::vector_t::Random (2 * 10) * 10.;
 
   CubicBSpline spline (timeRange, 2, parameters);
 
   // display trajectory as Gnuplot data
-  Gnuplot gnuplot =
-    Gnuplot::make_interactive_gnuplot ();
+  Gnuplot gnuplot = Gnuplot::make_interactive_gnuplot ();
   gnuplot
     << set ("multiplot layout 2,1")
     << set ("xrange [-10:10]")
@@ -109,11 +97,11 @@ int main ()
     << plot_xy (spline);
 
   // create the cost function
-  Cost cost;
+  boost::shared_ptr<Cost> cost (new Cost ());
 
   // evaluate cost function and associated gradient at a particular point x
-  std::cerr << cost (spline.parameters ()) << std::endl;
-  std::cerr << cost.gradient (spline.parameters ()) << std::endl;
+  std::cerr << (*cost) (spline.parameters ()) << std::endl;
+  std::cerr << cost->gradient (spline.parameters ()) << std::endl;
 
   // create the problem
   solver_t::problem_t problem (cost);
@@ -122,20 +110,20 @@ int main ()
   boost::shared_ptr<DifferentiableFunction> constraint =
     boost::make_shared<Constraint> ();
   for (Function::value_type t = 0.; t < 1.; t += .05)
-    {
-      boost::shared_ptr<StateFunction<CubicBSpline> > stateFunction =
-	boost::make_shared<StateFunction<CubicBSpline> >
-	(spline, constraint, t * tMax, 0);
+  {
+    boost::shared_ptr<StateFunction<CubicBSpline> > stateFunction =
+      boost::make_shared<StateFunction<CubicBSpline> >
+      (spline, constraint, t * tMax, 0);
 
-      // constraint: define associated interval
-      solver_t::problem_t::intervals_t intervals (1);
-      intervals[0] = Function::makeInterval (-2.5, 2.5);
-      // constraint: ...and scale
-      solver_t::problem_t::scales_t scales (1);
-      scales[0] = 1.;
-      // constraint: add it to the problem
-      problem.addConstraint (stateFunction, intervals, scales);
-    }
+    // constraint: define associated interval
+    solver_t::problem_t::intervals_t intervals (1);
+    intervals[0] = Function::makeInterval (-2.5, 2.5);
+    // constraint: define scaling
+    solver_t::problem_t::scaling_t scaling (1);
+    scaling[0] = 1.;
+    // constraint: add it to the problem
+    problem.addConstraint (stateFunction, intervals, scaling);
+  }
 
   // define the starting point
   problem.startingPoint () = spline.parameters ();
@@ -159,40 +147,40 @@ int main ()
 
   // changing the spline parameters
   switch (solver.minimum ().which ())
-    {
+  {
     case solver_t::SOLVER_VALUE:
       {
-	const Result& result =
-	  boost::get<Result> (solver.minimum ());
-	// result.x is the final optimization variables values
-	spline.setParameters (result.x);
-	break;
+        const Result& result =
+          boost::get<Result> (solver.minimum ());
+        // result.x is the final optimization variables values
+        spline.setParameters (result.x);
+        break;
       }
     case solver_t::SOLVER_VALUE_WARNINGS:
       {
-	const ResultWithWarnings& result =
-	  boost::get<ResultWithWarnings> (solver.minimum ());
-	// result.x is the final optimization variables values
-	spline.setParameters (result.x);
-	break;
+        const ResultWithWarnings& result =
+          boost::get<ResultWithWarnings> (solver.minimum ());
+        // result.x is the final optimization variables values
+        spline.setParameters (result.x);
+        break;
       }
     case solver_t::SOLVER_NO_SOLUTION:
       {
-	std::cerr << "A solution should have been found. Failing..."
-		  << std::endl
-		  << "No solution was found."
-		  << std::endl;
-	return 1;
+        std::cerr << "A solution should have been found. Failing..."
+                  << std::endl
+                  << "No solution was found."
+                  << std::endl;
+        return 1;
       }
     case solver_t::SOLVER_ERROR:
       {
-	std::cerr << "A solution should have been found. Failing..."
-		  << std::endl
-		  << boost::get<SolverError> (solver.minimum ()).what ()
-		  << std::endl;
-	return 1;
+        std::cerr << "A solution should have been found. Failing..."
+                  << std::endl
+                  << boost::get<SolverError> (solver.minimum ()).what ()
+                  << std::endl;
+        return 1;
       }
-    }
+  }
 
   gnuplot
     << set ("title 'After Optimization'")

@@ -26,8 +26,7 @@ int main()
 
   // display trajectory as Gnuplot data
   Gnuplot gnuplot = Gnuplot::make_interactive_gnuplot ();
-  gnuplot
-    << plot_xy (spline);
+  gnuplot << plot_xy (spline);
   std::cout << gnuplot << std::endl;
 
   // create a free time trajectory from the original one

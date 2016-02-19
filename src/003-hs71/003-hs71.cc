@@ -15,28 +15,26 @@ struct F : public TwiceDifferentiableFunction
   {
   }
 
-  void
-  impl_compute (result_ref result, const_argument_ref x) const
+  void impl_compute (result_ref result, const_argument_ref x) const
   {
     result[0] = x[0] * x[3] * (x[0] + x[1] + x[2]) + x[2];
   }
 
-  void
-  impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const
+  void impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const
   {
     grad << x[0] * x[3] + x[3] * (x[0] + x[1] + x[2]),
-      x[0] * x[3],
-      x[0] * x[3] + 1,
-      x[0] * (x[0] + x[1] + x[2]);
+            x[0] * x[3],
+            x[0] * x[3] + 1,
+            x[0] * (x[0] + x[1] + x[2]);
   }
 
   void
   impl_hessian (hessian_ref h, const_argument_ref x, size_type) const
   {
-    h << 2 * x[3],               x[3], x[3], 2 * x[0] + x[1] + x[2],
-      x[3],                   0.,   0.,   x[0],
-      x[3],                   0.,   0.,   x[1],
-      2 * x[0] + x[1] + x[2], x[0], x[0], 0.;
+    h <<               2 * x[3], x[3], x[3], 2 * x[0] + x[1] + x[2],
+                           x[3],   0.,   0.,                   x[0],
+                           x[3],   0.,   0.,                   x[1],
+         2 * x[0] + x[1] + x[2], x[0], x[0],                     0.;
   }
 };
 
@@ -46,28 +44,25 @@ struct G0 : public TwiceDifferentiableFunction
   {
   }
 
-  void
-  impl_compute (result_ref result, const_argument_ref x) const
+  void impl_compute (result_ref result, const_argument_ref x) const
   {
     result[0] = x[0] * x[1] * x[2] * x[3];
   }
 
-  void
-  impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const
+  void impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const
   {
     grad << x[1] * x[2] * x[3],
-      x[0] * x[2] * x[3],
-      x[0] * x[1] * x[3],
-      x[0] * x[1] * x[2];
+            x[0] * x[2] * x[3],
+            x[0] * x[1] * x[3],
+            x[0] * x[1] * x[2];
   }
 
-  void
-  impl_hessian (hessian_ref h, const_argument_ref x, size_type) const
+  void impl_hessian (hessian_ref h, const_argument_ref x, size_type) const
   {
-    h << 0.,          x[2] * x[3], x[1] * x[3], x[1] * x[2],
-      x[2] * x[3], 0.,          x[0] * x[3], x[0] * x[2],
-      x[1] * x[3], x[0] * x[3], 0.,          x[0] * x[1],
-      x[1] * x[2], x[0] * x[2], x[0] * x[1], 0.;
+    h <<          0., x[2] * x[3], x[1] * x[3], x[1] * x[2],
+         x[2] * x[3],          0., x[0] * x[3], x[0] * x[2],
+         x[1] * x[3], x[0] * x[3],          0., x[0] * x[1],
+         x[1] * x[2], x[0] * x[2], x[0] * x[1],          0.;
   }
 };
 
@@ -77,41 +72,31 @@ struct G1 : public TwiceDifferentiableFunction
   {
   }
 
-  void
-  impl_compute (result_ref result, const_argument_ref x) const
+  void impl_compute (result_ref result, const_argument_ref x) const
   {
     result[0] = x[0] * x[0] + x[1] * x[1] + x[2] * x[2] + x[3] * x[3];
   }
 
-  void
-  impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const
+  void impl_gradient (gradient_ref grad, const_argument_ref x, size_type) const
   {
     grad = 2 * x;
   }
 
-  void
-  impl_hessian (hessian_ref h, const_argument_ref x, size_type) const
+  void impl_hessian (hessian_ref h, const_argument_ref x, size_type) const
   {
     h << 2., 0., 0., 0.,
-      0., 2., 0., 0.,
-      0., 0., 2., 0.,
-      0., 0., 0., 2.;
+         0., 2., 0., 0.,
+         0., 0., 2., 0.,
+         0., 0., 0., 2.;
   }
 };
 
 int main ()
 {
-  typedef Solver<
-    DifferentiableFunction,
-    boost::mpl::vector<
-      LinearFunction,
-      DifferentiableFunction
-      >
-    >
-  solver_t;
+  typedef Solver<EigenMatrixDense> solver_t;
 
   // Create cost function.
-  F f;
+  boost::shared_ptr<F> f (new F ());
 
   // Create problem.
   solver_t::problem_t pb (f);
@@ -123,7 +108,7 @@ int main ()
 
   // Set the starting point.
   Function::vector_t start (pb.function ().inputSize ());
-  start[0] = 1., start[1] = 5., start[2] = 5., start[3] = 1.;
+  start << 1., 5., 5., 1.;
   pb.startingPoint() = start;
 
   // Create constraints.
@@ -131,23 +116,19 @@ int main ()
   boost::shared_ptr<G1> g1 (new G1 ());
 
   F::intervals_t bounds;
-  solver_t::problem_t::scales_t scales;
+  solver_t::problem_t::scaling_t scaling;
 
   // Add constraints
   bounds.push_back(Function::makeLowerInterval (25.));
-  scales.push_back (1.);
-  pb.addConstraint
-    (boost::static_pointer_cast<TwiceDifferentiableFunction> (g0),
-     bounds, scales);
+  scaling.push_back (1.);
+  pb.addConstraint (g0, bounds, scaling);
 
   bounds.clear ();
-  scales.clear ();
+  scaling.clear ();
 
   bounds.push_back(Function::makeInterval (40., 40.));
-  scales.push_back (1.);
-  pb.addConstraint
-    (boost::static_pointer_cast<TwiceDifferentiableFunction> (g1),
-     bounds, scales);
+  scaling.push_back (1.);
+  pb.addConstraint (g1, bounds, scaling);
 
   // Initialize solver.
 
@@ -170,7 +151,7 @@ int main ()
 
   // Process the result
   switch (res.which ())
-    {
+  {
     case solver_t::SOLVER_VALUE:
       {
         // Get the result.
@@ -205,7 +186,7 @@ int main ()
 
         return 2;
       }
-    }
+  }
 
   // Should never happen.
   assert (0);

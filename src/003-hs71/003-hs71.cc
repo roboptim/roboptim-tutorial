@@ -33,13 +33,7 @@ struct G1 : public TwiceDifferentiableFunction
 int main ()
 {
   // Hint: this is the type of your solver.
-  typedef Solver<
-    DifferentiableFunction,    // cost function
-    boost::mpl::vector<
-      LinearFunction,          // constraint type 1
-      DifferentiableFunction   // constraint type 2
-      >
-    > solver_t;
+  typedef Solver<EigenMatrixDense> solver_t;
 
   // Hint: this is the type of your problem.
   typedef solver_t::problem_t problem_t;

@@ -21,16 +21,7 @@ using namespace roboptim::trajectory::visualization::gnuplot;
   throw std::runtime_error ("please implement me")
 
 // Hint: the solver type.
-//
-// Cost: Differentiable Function (gradient computations but no hessian)
-// Constraint: Differentiable Function or Linear Function
-typedef Solver<
-  DifferentiableFunction,    // cost function
-  boost::mpl::vector<
-    LinearFunction,          // constraint type 1
-    DifferentiableFunction   // constraint type 2
-    >
-  > solver_t;
+typedef Solver<EigenMatrixDense> solver_t;
 
 class Cost
 {

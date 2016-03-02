@@ -1,6 +1,10 @@
 roboptim-tutorial
 =================
 
+[![License LGPL 3][badge-license]](http://www.gnu.org/licenses/lgpl-3.0.txt)
+[![Build Status](https://travis-ci.org/roboptim/roboptim-tutorial.svg?branch=answers)](https://travis-ci.org/roboptim/roboptim-tutorial)
+[![Join the chat at https://gitter.im/roboptim/development](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/roboptim/development?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This repository contains exercises to learn how to use RobOptim. They
 are ordered by difficulty so please try to go through them in the
 suggested order.

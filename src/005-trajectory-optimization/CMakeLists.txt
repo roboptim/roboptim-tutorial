@@ -1,5 +1,8 @@
 ADD_REQUIRED_DEPENDENCY("roboptim-core-plugin-ipopt")
 
-ADD_EXECUTABLE(005-trajectory-optimization 005-trajectory-optimization.cc)
-PKG_CONFIG_USE_DEPENDENCY(005-trajectory-optimization roboptim-core)
-PKG_CONFIG_USE_DEPENDENCY(005-trajectory-optimization roboptim-trajectory)
+SET(EXAMPLE_NAME 005-trajectory-optimization)
+ADD_EXECUTABLE(${EXAMPLE_NAME} ${EXAMPLE_NAME}.cc)
+
+ADD_TEST(${EXAMPLE_NAME} ${RUNTIME_OUTPUT_DIRECTORY}/${EXAMPLE_NAME})
+PKG_CONFIG_USE_DEPENDENCY(${EXAMPLE_NAME} roboptim-core)
+PKG_CONFIG_USE_DEPENDENCY(${EXAMPLE_NAME} roboptim-trajectory)

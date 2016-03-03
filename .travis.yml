@@ -1,10 +1,8 @@
 language: cpp
-compiler:
-  - gcc
-  - clang
 env:
   global:
   - APT_DEPENDENCIES="doxygen libltdl-dev libboost-all-dev liblog4cxx10-dev"
+  - HOMEBREW_DEPENDENCIES="doxygen log4cxx ipopt openblas mumps"
   - GIT_DEPENDENCIES="roboptim/roboptim-core roboptim/roboptim-core-plugin-ipopt roboptim/roboptim-trajectory"
   - LCOV_IGNORE_RULES="*tests*"
   - secure: dn2Iai0VINXoHlHTL0s0/+37pIbTTaKI0698dAPYpMBUkE9RIuumcKEjDP1uKqaA9anSPm1dLrtSsSm+kFGaEBk+cviGxsc242KSxqxCBqNP3Bbm4dFCbKnnG4c7I8OTuYUuJJg90xVm2QGAnUNn9vvBnydvTpeCEN850lT+dBM=
@@ -13,6 +11,7 @@ env:
   - secure: "FeD8bUPyJbez7IDLEoNyfyPxgpmxJ008dkwHdBl5gyUh8E9VD5XN/w/9FWIkEey7yqpMmbrHzaDjYKzMQ1pJI6jpcnkcQ9AxZSIJxjFInI99kLMfIK+RClprWtSPqyb4pe1dq2ZKKvUBuc2eyh1ZseVfxoQsU8q/rfDbSYGqRnI="
 notifications:
   email: roboptim@googlegroups.com
+
 before_install:
   - ./.travis/dependencies/eigen-3.2
   - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then CC=gcc CXX=g++ ./.travis/dependencies/ipopt; fi
@@ -22,10 +21,29 @@ script:
   - ./.travis/run build
 after_failure: ./.travis/run after_failure
 after_success: ./.travis/run after_success
+
 branches:
   only:
     - answers
     - travis
 matrix:
   allow_failures:
-    - compiler: gcc
+    - compiler: clang
+    - os: osx
+  include:
+    - os: linux
+      dist: trusty
+      compiler: gcc
+    - os: linux
+      dist: trusty
+      compiler: clang
+    - os: linux
+      dist: precise
+      compiler: gcc
+    - os: linux
+      dist: precise
+      compiler: clang
+    - os: osx
+      compiler: clang
+    - os: osx
+      compiler: gcc

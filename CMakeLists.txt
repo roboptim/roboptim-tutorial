@@ -24,6 +24,10 @@ SET(PROJECT_NAME roboptim-tutorial)
 SET(PROJECT_DESCRIPTION "RobOptim Tutorial")
 SET(PROJECT_URL "http://github.com/roboptim/roboptim-tutorial")
 
+SET(CXX_DISABLE_WERROR TRUE)
+
+SETUP_PROJECT()
+
 ADD_REQUIRED_DEPENDENCY("roboptim-core")
 ADD_REQUIRED_DEPENDENCY("roboptim-trajectory")
 

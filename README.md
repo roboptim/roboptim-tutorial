@@ -66,3 +66,5 @@ For cheaters: checking up the solutions
 Solutions are available in a different branch called "answers". Once
 you are done implementing the exercises, take a look at the reference
 implementation!
+
+[badge-license]: https://img.shields.io/badge/license-LGPL_3-green.svg
